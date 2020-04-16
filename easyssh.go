@@ -346,7 +346,8 @@ func (ssh_conf *MakeConfig) Scp(sourceFile string, etargetFile string) error {
 		fmt.Fprintln(w, "C0644", srcStat.Size(), targetFile)
 
 		if srcStat.Size() > 0 {
-			io.Copy(w, src)
+			// io.Copy(w, src)
+			io.CopyN(w, src, 10)
 			fmt.Fprint(w, "\x00")
 		} else {
 			fmt.Fprint(w, "\x00")
